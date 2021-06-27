@@ -18,6 +18,12 @@ defmodule DiscussWeb.AuthController do
     sign_in(conn, user_params)
   end
 
+  def signout(conn, _) do
+    conn
+    |> configure_session(drop: true)
+    |> redirect(to: topic_path(conn, :index))
+  end
+
   defp sign_in(conn, user_params) do
     case insert_or_update_user(user_params) do
       {:ok, user} ->
